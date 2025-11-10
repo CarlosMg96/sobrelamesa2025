@@ -27,3 +27,8 @@ EXPOSE 80
 # Da permisos correctos a storage y bootstrap/cache
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
+
+
+# Instalar Node.js 20 y npm
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
