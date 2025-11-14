@@ -1,0 +1,34 @@
+[
+    {
+        "title": "Nuevo documento disponible",
+        "message": "Se ha subido un nuevo documento de recursos humanos",
+        "date": "13\/08\/2025",
+        "icon": "mdi mdi-file-document",
+        "pdf": true
+    },
+    {
+        "title": "Nuevo mapa",
+        "message": "Se ha subido un nuevo mapa",
+        "date": "13\/08\/2025",
+        "icon": "mdi mdi-map-marker",
+        "pdf": false
+    },
+    {
+        "title": "Recordatorio: Reuni\u00f3n de equipo",
+        "message": "No olvides la reuni\u00f3n de equipo programada para ma\u00f1ana a las 10:00 AM",
+        "date": "12\/08\/2025",
+        "icon": "mdi mdi-calendar-clock"
+    },
+    {
+        "title": "Actualizaci\u00f3n del sistema",
+        "message": "El sistema se actualizar\u00e1 esta noche a la medianoche. Por favor guarda tu trabajo.",
+        "date": "11\/08\/2025",
+        "icon": "mdi mdi-update"
+    },
+    {
+        "title": "Bienvenido al sistema",
+        "message": "\u00a1Gracias por unirte a nuestra plataforma! Esperamos que tengas una gran experiencia.",
+        "date": "15\/08\/2025",
+        "icon": "mdi mdi-account-plus"
+    }
+]
