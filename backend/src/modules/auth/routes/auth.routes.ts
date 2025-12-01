@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { login } from "../modules/auth/controllers/auth.controller";
-import { authMiddleware } from "../middlewares/auth";
+import { authController } from "../controllers/auth.controller";
+import { authMiddleware } from "../../../middlewares/auth";
 
 const router = Router();
 
-router.post("/login", login);
+router.post("/login", authController.login);
 router.get("/profile", authMiddleware, (req, res) => {
   return res.json({
     message: "Ruta protegida",
@@ -13,3 +13,5 @@ router.get("/profile", authMiddleware, (req, res) => {
 });
 
 export default router;
+
+

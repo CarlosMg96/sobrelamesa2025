@@ -1,33 +1,30 @@
-import { Request, Response } from "express";
-import bcrypt from "bcryptjs";
-import { signToken } from "../../../config/jwt";
-import { User } from "../interfaces/user";
+import { AuthService, AuthError } from "../services/auth.service";
+import { AuthMySQLRepository } from "../repository/auth.repository.mysql";
+import { sendResponse } from "../../../core/response";
 
+const repo = new AuthMySQLRepository();
+const service = new AuthService(repo);
 
-// Ejemplo temporal (debería venir de DB)
-const fakeUser: User = {
-  id: 1,
-  email: "test@test.com",
-  password: bcrypt.hashSync("123456", 10),
-};
-
-export const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-
-  if (email !== fakeUser.email) {
-    return res.status(400).json({ message: "Usuario no encontrado" });
-  }
-
-  const isMatch = await bcrypt.compare(password, fakeUser.password);
-
-  if (!isMatch) {
-    return res.status(400).json({ message: "Contraseña incorrecta" });
-  }
-
-  const token = signToken({ id: fakeUser.id, email: fakeUser.email });
-
-  return res.json({
-    message: "Login exitoso",
-    token,
-  });
-};
+export const authController = new (class AuthController {
+  login = async (req, res) => {
+    try {
+      if (!req.body) {
+        return sendResponse(res, 400, "Missing request body");
+      }
+      const { email, password } = req.body;
+      if (!email || !password) {
+        return sendResponse(res, 400, "Email and password are required");
+      }
+      const result = await service.login(email, password);
+      return sendResponse(res, 200, "Login successful", result);
+    } catch (error) {
+      if (error instanceof AuthError) {
+        if (error.code === "USER_NOT_FOUND" || error.code === "INCORRECT_PASSWORD") {
+          return sendResponse(res, 401, "Invalid credentials");
+        }
+      }
+      console.error("Error in login:", error);
+      return sendResponse(res, 500, "Internal server error");
+    }
+  };
+})();
