@@ -1,4 +1,5 @@
 import authModule from "./modules/auth";
+import eventModule from "./modules/events";
 import express from 'express';
 const app = express();
 const port = process.env.PORT || 3000;
@@ -6,5 +7,6 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use("/api/auth", authModule.routes);
+app.use("/api/events", eventModule.routes);
 
 export default app;
